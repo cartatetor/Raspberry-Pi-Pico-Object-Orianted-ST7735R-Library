@@ -1,21 +1,10 @@
 /*==================================================================
-Carter Hertter
-Gemini assised in "diesecting" (kind of)
+Carter Hertter (cartatetor)
 June 6, 2026
 
-A header only Object oriented port (?) ( C -> C++ ) of bablok's pico-st7735.
- It is desined to mirror adafruits st7735 library, 
- but for the raspberry pi pico. Parts of my code is really 
- just a wrapper. Probely would have been easyier to
- create a compatibility layer insteared of porting a port.
+Based on Boblokb's pico-st7735 repo.
 
-the 'asm valatile()' tells the compiler that there is assembly 
- that shouldn't be edited. the '"nop \n nop \n nop"' is assembly 
- for no operations (no changes in CPU registurs,  memory, etc)
- for 3 clock cycles. The assembly will be inserted direcly
- into the machine code.
-
-Boblok's work:
+Boblokb's work:
 https://github.com/bablokb/pic-st7735
 Boblok's work is a port of:
 https://github.com/gavinlyonsrepo/pic_16F18346_projects
@@ -582,6 +571,7 @@ class ST7735 {
         void drawPixel(uint8_t x, uint8_t y, uint16_t color){
             if((x >= _width) || (y >= _height)) 
                 return;
+
             setAddrWindow(x,y,x,y);
             write_data(color >> 8);
             write_data(color & 0xFF);
@@ -620,6 +610,22 @@ class ST7735 {
             hi = color >> 8; lo = color;
             setAddrWindow(x, y, x, y + h - 1);
             while (h--) {
+                spi_write_blocking(TFT_SPI, &hi, 1);
+                spi_write_blocking(TFT_SPI, &lo, 1);
+            }
+            tft_cs_high();
+        }
+
+        void drawFastHLine(uint8_t x, uint8_t y, uint8_t w, uint16_t color){
+            uint8_t hi, lo;
+            if((x >= _width) || (y >= _height))
+                return;
+            if((x + w - 1) >= _width)
+                w = _width - x;
+            hi = color >> 8; lo = color;
+            setAddrWindow(x, y, x + w - 1, y);
+
+            while (w--) {
                 spi_write_blocking(TFT_SPI, &hi, 1);
                 spi_write_blocking(TFT_SPI, &lo, 1);
             }
