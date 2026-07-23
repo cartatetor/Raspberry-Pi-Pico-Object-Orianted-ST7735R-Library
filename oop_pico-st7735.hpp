@@ -729,5 +729,16 @@ class ST7735 {
             write_data(madctl);
             end_write();
         }
+
+    //Enable and displble display\
+    //currently just toggles the cs pin
+    //may change if a better way is found
+    void enableDisplay() {
+        tft_cs_low();
+    }
+
+    void disableDisplay() {
+        tft_cs_high();
+    }
         
 };
