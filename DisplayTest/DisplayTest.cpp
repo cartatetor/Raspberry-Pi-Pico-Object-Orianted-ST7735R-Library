@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
+//
+#include <cstdint>
 
 //The dispay lib
 #include "oop_pico-st7735.hpp"

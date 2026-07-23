@@ -1,6 +1,6 @@
 /*==================================================================
 Carter Hertter (cartatetor)
-June 6, 2026
+July 22, 2026
 
 Based on Boblokb's pico-st7735 repo.
 
@@ -86,7 +86,7 @@ https://github.com/gavinlyonsrepo/pic_16F18346_projects
 
 //The class
 class ST7735 {
-    private:
+    protected:
         uint16_t BackColor = ST7735_BLACK;
 
         uint8_t TFT_CS, TFT_CLK, TFT_RST, TFT_MOSI, TFT_DC;
@@ -457,7 +457,7 @@ class ST7735 {
         }
 
         void SetSPI() {
-            spi_init(TFT_SPI, 1200 * 10000);   //spi go vroom vroom (12Mhz)
+            spi_init(TFT_SPI, 1200 * 10000);   //spi go vroom vroom (12Mhz(?))
             spi_set_format(TFT_SPI, 8, SPI_CPOL_0, SPI_CPHA_0, SPI_MSB_FIRST);
             //General SPI and clock
             gpio_set_function(TFT_MOSI, GPIO_FUNC_SPI);
@@ -567,6 +567,15 @@ class ST7735 {
             cursor_y = y;
             cursor_x = x;
         }
+
+        //allows fo a 'bulk' initaliztion. 
+        void InitBulk() {
+            setTextColor(ST7735_WHITE);
+            setBackgroundColor(ST7735_BLACK);
+            setTextSize(1);
+            setCursor(0,0);
+        }
+
     //basic screen functions
         void drawPixel(uint8_t x, uint8_t y, uint16_t color){
             if((x >= _width) || (y >= _height)) 
@@ -579,6 +588,7 @@ class ST7735 {
         }
 
         void fillRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint16_t color) {
+            tft_cs_low();
             uint8_t hi, lo;
             if((x >= _width) || (y >= _height))
                 return;
@@ -719,4 +729,5 @@ class ST7735 {
             write_data(madctl);
             end_write();
         }
+        
 };

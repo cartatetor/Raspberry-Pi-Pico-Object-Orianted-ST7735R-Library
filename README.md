@@ -37,7 +37,7 @@ See "DisplayTest/"
 - INITR_GREENTAB
 - INITR_B
 
- 4: Set your desired colors and curser location.<br>
+ 4: Set your desired colors and curser location, or use InitBulk() <br>
  5: Print to the display.
 
 ## Future Plans
@@ -52,3 +52,4 @@ See "DisplayTest/"
 
 - Reorganize and restrucure
 - commets
+- Expand display compatibility (ST77**?)
