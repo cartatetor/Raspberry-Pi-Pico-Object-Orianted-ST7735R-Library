@@ -45,7 +45,6 @@ See "DisplayTest/"
 ### Capibilities
 
 - invertDisplay()
-- enableDisplay()
 - further mirror Adafruits ST7735 library
 
 ### Other
