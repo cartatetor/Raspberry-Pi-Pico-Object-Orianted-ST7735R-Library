@@ -31,7 +31,7 @@ CS/SS     -> Chip Select<br>
 RST       -> Reset<br>
 
 Boblokb's work: <br>
-<https://github.com/bablokb/pic-st7735> <br>
+<https://github.com/bablokb/pico-st7735> <br>
 Boblokb's work is a port of: <br>
 <https://github.com/gavinlyonsrepo/pic_16F18346_projects>
 
