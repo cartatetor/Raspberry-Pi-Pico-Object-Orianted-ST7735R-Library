@@ -4,6 +4,17 @@ A header only object-oriented port (?) ( C -> C++ ) of bablok's pico-st7735 that
 
 Probely would have been easier to create a compatibility layer insteared of porting a port.
 
+## Structure
+
+oop_pico-st7735.hpp
+
+- The main file
+
+vars.hpp
+
+- contains the really big arrays and macros
+- to make viewing the main file easier
+
 ## Notes
 
 The pico-st7735 reposetory (Boblokb's work) is currently not required.
@@ -52,3 +63,4 @@ See "DisplayTest/"
 - Reorganize and restrucure
 - commets
 - Expand display compatibility (ST77**?)
+- Fix my spelling (as needed)

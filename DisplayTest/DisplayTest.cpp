@@ -30,10 +30,13 @@ int main() {
     tft.setCursor(0,0);
     tft.setTextColor(ST7735_WHITE);
     tft.setTextSize(1);
+    //or use InitBulk()
 
     tft.print("Hello World!");
     tft.println("New Line");
     tft.println("");
+
+    tft.drawFastHLine(160, ST7735_BLUE)
 
     for (uint8_t i = 15; i < 20, i++;) {
         tft.drawFastHLine(0, i, 128, ST7735_CYAN);
