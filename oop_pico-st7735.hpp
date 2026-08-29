@@ -330,6 +330,13 @@ class ST7735 {
     //
 
     //basic screen functions
+
+        /**
+         * @brief prints a single pixel to the display
+         * @param x The X cordnet of the pixel
+         * @param y The Y cordnet of the pixel
+         * @param color The pixels color
+         */
         void drawPixel(uint8_t x, uint8_t y, uint16_t color){
             if((x >= _width) || (y >= _height)) 
                 return;
@@ -340,6 +347,14 @@ class ST7735 {
             end_write();
         }
 
+        /**
+         * @brief colors a rectangular section of the display
+         * @param x the upper left X cordnet of the desired rectangle
+         * @param y The upper left Y cordnet of the desired rectangle
+         * @param w The width of the desired rectangle
+         * @param h The hight of the desired Rectangle
+         * @param color The desired fill color
+         */
         void fillRectangle(uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint16_t color) {
             tft_cs_low();
             uint8_t hi, lo;
@@ -364,7 +379,11 @@ class ST7735 {
             fillRectangle(0,0, _width, _height, color);
         }
 
-        //virtical line
+        /**
+         * @brief Draws a Virtical line
+         * @param h The width of the line
+         * @param color The colof of the desired line
+         */
         void drawFastVLine(uint8_t x, uint8_t y, uint8_t h, uint16_t color) {
             uint8_t hi, lo;
             if((x >= _width) || (y >= _height))
@@ -383,7 +402,11 @@ class ST7735 {
             drawFastVLine(cursor_x, cursor_y , h, color);
         }
 
-        //horizantal line
+        /**
+        * @brief Draws a horizantle line
+        * @param h The width of the line
+        * @param color The colof of the desired line
+        */
         void drawFastHLine(uint8_t x, uint8_t y, uint8_t w, uint16_t color){
             uint8_t hi, lo;
             if((x >= _width) || (y >= _height))
@@ -412,7 +435,7 @@ class ST7735 {
     //
 
     //text functions
-        void print(std::string _text) {
+        void print(char* _text) {
             uint16_t x, y;
             uint16_t textsize, i;
             x = cursor_x; 
@@ -442,7 +465,7 @@ class ST7735 {
             }
         }
 
-        void println(std::string text) {
+        void println(char* text) {
             print("\n" + text);
         }
 
