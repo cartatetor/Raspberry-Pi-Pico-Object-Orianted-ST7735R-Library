@@ -38,6 +38,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "vars.hpp"
 
+#define INITR_GREENTAB 0
+#define INITR_REDTAB 1
+#define INITR_BLACKTAB 2
+#define INITR_B 3
+
+
 //The class
 class ST7735 {
     protected:
@@ -150,220 +156,16 @@ class ST7735 {
             0x02, 0x01, 0x02, 0x04, 0x02
         };
 
-        void Bcmd(){
-            write_command(ST7735_SWRESET);
-            sleep_ms(50);
-            end_write();
+    //These functions are tab/color spacific
+    //Display setups
 
-            write_command(ST7735_SLPOUT);
-            sleep_ms(250);
-            sleep_ms(250);
-            end_write();
-
-            write_command(ST7735_COLMOD);
-            write_data(0x05);
-            sleep_ms(10);
-            end_write();
-
-            write_command(ST7735_FRMCTR1);
-            write_data(0x00);
-            write_data(0x06);
-            write_data(0x03);
-            sleep_ms(10);
-            end_write();
-
-            write_command(ST7735_MADCTL);
-            write_data(0x08);
-            end_write();
-
-            write_command(ST7735_DISSET5);
-            write_data(0x15);
-            write_data(0x02);
-            end_write();
-
-            write_command(ST7735_INVCTR);
-            write_data(0x00);
-            end_write();
-
-            write_command(ST7735_PWCTR1);
-            write_data(0x02);
-            write_data(0x70);
-            sleep_ms(10);
-            end_write();
-
-            write_command(ST7735_PWCTR2);
-            write_data(0x05);
-            end_write();
-
-            write_command(ST7735_PWCTR3);
-            write_data(0x01);
-            write_data(0x02);
-            end_write();
-
-            write_command(ST7735_VMCTR1);
-            write_data(0x3C);
-            write_data(0x38);
-            sleep_ms(10);
-            end_write();
-
-            write_command(ST7735_PWCTR6);
-            write_data(0x11);
-            write_data(0x15);
-            end_write();
-
-            write_command(ST7735_GMCTRP1);
-            write_data(0x09); write_data(0x16); write_data(0x09); write_data(0x20);
-            write_data(0x21); write_data(0x1B); write_data(0x13); write_data(0x19);
-            write_data(0x17); write_data(0x15); write_data(0x1E); write_data(0x2B);
-            write_data(0x04); write_data(0x05); write_data(0x02); write_data(0x0E);
-            end_write();
-
-            write_command(ST7735_GMCTRN1);
-            write_data(0x0B); write_data(0x14); write_data(0x08); write_data(0x1E);
-            write_data(0x22); write_data(0x1D); write_data(0x18); write_data(0x1E);
-            write_data(0x1B); write_data(0x1A); write_data(0x24); write_data(0x2B);
-            write_data(0x06); write_data(0x06); write_data(0x02); write_data(0x0F);
-            sleep_ms(10);
-            end_write();
-
-            write_command(ST7735_CASET);
-            write_data(0x00); write_data(0x02); write_data(0x08); write_data(0x81);
-            end_write();
-
-            write_command(ST7735_RASET);
-            write_data(0x00); write_data(0x01); write_data(0x08); write_data(0xA0);
-            end_write();
-
-            write_command(ST7735_NORON);
-            sleep_ms(10);
-            end_write();
-
-            write_command(ST7735_DISPON);
-            sleep_ms(250);
-            sleep_ms(250);
-            end_write();
-        }
-
-        void Rcmd1(){
-            write_command(ST7735_SWRESET);
-            sleep_ms(150);
-            end_write();
-
-            write_command(ST7735_SLPOUT);
-            sleep_ms(250);
-            sleep_ms(250);
-            end_write();
-
-            write_command(ST7735_FRMCTR1);
-            write_data(0x01);
-            write_data(0x2C);
-            write_data(0x2D);
-            end_write();
-
-            write_command(ST7735_FRMCTR2);
-            write_data(0x01);
-            write_data(0x2C);
-            write_data(0x2D);
-            end_write();
-            
-            write_command(ST7735_FRMCTR3);
-            write_data(0x01); write_data(0x2C); write_data(0x2D);
-            write_data(0x01); write_data(0x2C); write_data(0x2D);
-            end_write();
-
-            write_command(ST7735_INVCTR);
-            write_data(0x07);
-            end_write();
-
-            write_command(ST7735_PWCTR1);
-            write_data(0xA2);
-            write_data(0x02);
-            write_data(0x84);
-            end_write();
-
-            write_command(ST7735_PWCTR2);
-            write_data(0xC5);
-            end_write();
-
-            write_command(ST7735_PWCTR3);
-            write_data(0x0A);
-            write_data(0x00);
-            end_write();
-            
-            write_command(ST7735_PWCTR4);
-            write_data(0x8A);
-            write_data(0x2A);
-            end_write();
-
-            write_command(ST7735_PWCTR5);
-            write_data(0x8A);
-            write_data(0xEE);
-            end_write();
-
-            write_command(ST7735_VMCTR1);
-            write_data(0x0E);
-            end_write();
-
-            write_command(ST7735_INVOFF);
-            end_write();
-
-            write_command(ST7735_MADCTL);            
-            write_data(0xC8);
-            end_write();
-
-            write_command(ST7735_COLMOD);
-            write_data(0x05);
-            end_write();
-        }
-
-        void Rcmd2green(){
-            write_command(ST7735_CASET);
-            write_data(0x00); write_data(0x02);
-            write_data(0x00); write_data(0x7F + 0x02);
-            end_write();
-
-            write_command(ST7735_RASET);
-            write_data(0x00); write_data(0x01);
-            write_data(0x00); write_data(0x9F + 0x01);
-            end_write();            
-        }
-
-        void Rcmd2red(){
-            write_command(ST7735_CASET);
-            write_data(0x00); write_data(0x00);
-            write_data(0x00); write_data(0x7F);
-            end_write();
-            
-            write_command(ST7735_RASET);
-            write_data(0x00); write_data(0x00);
-            write_data(0x00); write_data(0x9F);
-            end_write();
-        }
-
-        void Rcmd3(){
-            write_command(ST7735_GMCTRP1);
-            write_data(0x02); write_data(0x1C); write_data(0x07); write_data(0x12);
-            write_data(0x37); write_data(0x32); write_data(0x29); write_data(0x2D);
-            write_data(0x29); write_data(0x25); write_data(0x2B); write_data(0x39);
-            write_data(0x00); write_data(0x01); write_data(0x03); write_data(0x10);
-            end_write();
-            
-            write_command(ST7735_GMCTRN1);
-            write_data(0x03); write_data(0x1D); write_data(0x07); write_data(0x06);
-            write_data(0x2E); write_data(0x2C); write_data(0x29); write_data(0x2D);
-            write_data(0x2E); write_data(0x2E); write_data(0x37); write_data(0x3F);
-            write_data(0x00); write_data(0x00); write_data(0x02); write_data(0x10);
-            end_write();
-            
-            write_command(ST7735_NORON);
-            sleep_ms(10);
-            end_write();
-
-            write_command(ST7735_DISPON);
-            sleep_ms(100);
-            end_write();
-        }
+        void Bcmd();
+        void Rcmd1();
+        void Rcmd2green();
+        void Rcmd2red();
+        void Rcmd3();
     
+    //
         void setAddrWindow(uint8_t x0, uint8_t y0, uint8_t x1, uint8_t y1) {
             write_command(ST7735_CASET);
             write_data(0x00);
@@ -468,38 +270,35 @@ class ST7735 {
     //============================================================================================//
 
     //set up the disply
-        void initR(std::string init) {
+
+        //New Version.old one used string
+        void initR(std::uint8_t init) {
             Rcmd1();
-            if (init == "INITR_REDTAB") {
+            switch (init) {
+            case 0:
                 Rcmd2red();
                 Rcmd3();
                 _tft_type = 0;
-            }
-            else if (init == "INITR_GREENTAB") {
+                break;
+            case 1:
                 Rcmd2green();
                 Rcmd3();
                 _colstart = 2;
                 _rowstart = 1;
                 _tft_type = 0;
-            }
-            else if (init == "INITR_BLACKTAB") {
+                break;
+            case 2:
                 Rcmd2red();
                 Rcmd3();
                 write_command(ST7735_MADCTL);
                 write_data(0xC0);
                 _tft_type = 1;
-            }
-            else if (init == "INITR_B") {
+            case 3:
                 Bcmd();
                 _tft_type = 2;
-            }
-            //defualt, assumes blacktab
-            else {
-                Rcmd2red();
-                Rcmd3();
-                write_command(ST7735_MADCTL);
-                write_data(0xC0);
-                _tft_type = 1;
+                break;
+            default:
+                cerr << "Unknown display tab";
             }
         }
 
